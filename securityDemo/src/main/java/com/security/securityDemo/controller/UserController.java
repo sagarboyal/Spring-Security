@@ -22,4 +22,8 @@ public class UserController {
         User data = userService.save(user);
         return (data != null)?data.toString():"error";
     }
+    @PostMapping("/login")
+    public String login(@RequestBody User user){
+        return userService.verify(user);
+    }
 }
