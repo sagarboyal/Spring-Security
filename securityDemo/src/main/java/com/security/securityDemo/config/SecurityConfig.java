@@ -6,6 +6,10 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -37,5 +41,29 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(
                                 SessionCreationPolicy.STATELESS
                         )).build();
+    }
+
+    // after  this we cant use default service any more
+    @Bean
+    public UserDetailsService userDetailsService(){
+        // we can not return UserDetailsService because it was a interface
+        // so to implement it we use InMemoryUserDetailsManager it was implement
+        // UserDetailsManager and UserDetailsManager actual implement the UserDetailsService
+
+        UserDetails user1 = User
+                .withDefaultPasswordEncoder()
+                .username("tiger")
+                .password("scott")
+                .roles("USER")
+                .build();
+
+        UserDetails user2 = User
+                .withDefaultPasswordEncoder()
+                .username("admin")
+                .password("admin")
+                .roles("USER", "ADMIN")
+                .build();
+
+        return new InMemoryUserDetailsManager(user1, user2);
     }
 }
