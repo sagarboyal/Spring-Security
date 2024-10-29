@@ -1,4 +1,4 @@
-package com.security.securityDemo.test1;
+package com.security.securityDemo.model;
 
 public class Student {
     private int id;
