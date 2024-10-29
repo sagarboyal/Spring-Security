@@ -23,14 +23,15 @@ public class SecurityConfig {
 //                .sessionManagement(session ->
 //                        session.sessionCreationPolicy(
 //                                SessionCreationPolicy.STATELESS
-//                        )); // new session every time//       return http.build();
+//                        )); // new session every time
+//       return http.build();
 
 
         return http
                 .csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests(request -> request
                         .anyRequest().authenticated())
-                .formLogin(Customizer.withDefaults())
+                //.formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(
