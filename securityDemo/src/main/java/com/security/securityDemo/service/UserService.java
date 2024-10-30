@@ -32,7 +32,7 @@ public class UserService {
                         ));
 //        return (authentication.isAuthenticated())?"success":"un-success";
         if(authentication.isAuthenticated()){
-            return jwtService.generateToken();
+            return jwtService.generateToken(user.getUsername());
         }
         return "fail";
     }
